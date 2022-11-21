@@ -1,43 +1,53 @@
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Doctor {
-    static int id = 0; // Autoincrement
-    private String name;
-    private String email;
+public class Doctor extends User {
+    //Atributos
     private String speciality;
 
-
     // Constructor
-    Doctor() {
-        System.out.println("Construyendo el objeto Doctor");
+    Doctor(String name, String email) {
+        super(name, email);
+        System.out.println("El nombre del doctor asignado es: " + name);
+
     }
 
-    Doctor(String name, String speciality) {
-        System.out.println("El nombre del doctor asignado es: " + name);
-        id++;
-        this.name = name;
+    // Getters y setters
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
         this.speciality = speciality;
     }
 
-    // comportamientos
-    public void showName() {
-        System.out.println(name);
-    }
-
-    public void showId() {
-        System.out.println("ID Doctor: " + id);
-    }
-
+    //Comportamientos
+    //creamos una lista de tipo AvailableAppointment (es un objeto que tiene atributos)
     ArrayList<AvailableAppointment> availableAppointments = new ArrayList<>();
 
+    /**
+     * Descripción: addAvailableAppotintment Metodo que pide 2 parametros y luego los añade a la lista availableAppointments
+     * creando un objeto a partir del constructor AvailableAppointment
+     *
+     * @param date: Es la fecha para la cita
+     * @param time: Es la hora de la cita
+     */
     public void addAvailableAppotintment(Date date, String time) {
         availableAppointments.add(new Doctor.AvailableAppointment(date, time));
     }
 
-
+    /**
+     * Descripción: Metodo del tipo Arraylist de la clase o tipo AvailableAppointment
+     *
+     * @return availableAppointments Retorna el contenido de la lista de citas
+     */
     public ArrayList<AvailableAppointment> getAvailableAppointments() {
         return availableAppointments;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nSpeciality: " + speciality + "\nAvailable: " + availableAppointments.toString();
     }
 
     // clase aninada
@@ -46,11 +56,13 @@ public class Doctor {
         private Date date;
         private String time;
 
+        // Constructor
         public AvailableAppointment(Date date, String time) {
             this.date = date;
             this.time = time;
         }
 
+        // Getters y Setters
         public int getId() {
             return id;
         }
@@ -74,5 +86,11 @@ public class Doctor {
         public void setTime(String time) {
             this.time = time;
         }
+
+        @Override
+        public String toString() {
+            return "\nAvailable Appointmets \nDate: " + date + "\nTime: " + time;
+        }
     }
+
 }
